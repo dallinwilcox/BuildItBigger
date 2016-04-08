@@ -21,7 +21,7 @@ public class JokeProvider {
             "Q: Which dinosaur knew the most words?\n" +
                 "\n" + "A: The thesaurus.",
             "Q: What does a nosey pepper do?\n" +
-                "\n" + "A: Gets jalapeño business!"
+                "\n" + "A: Gets jalape\u00F1o business!"
     ));
 
     public String getRandomJoke()
