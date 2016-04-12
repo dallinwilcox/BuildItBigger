@@ -24,8 +24,10 @@ import javax.inject.Named;
   )
 )
 public class MyEndpoint {
+
     private JokeProvider jokeProvider = new JokeProvider();
-    /** A simple endpoint method that takes a name and says Hi back */
+    /** A simple endpoint method that returns a random joke */
+    @ApiMethod(name="getRandomJoke")
     public MyBean getRandomJoke( ) {
         MyBean response = new MyBean();
         response.setData(jokeProvider.getRandomJoke());

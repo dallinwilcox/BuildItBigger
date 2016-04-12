@@ -25,5 +25,4 @@ dependencies {
     compile project(':JokeClient')
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile project(path: ':jokeServer', configuration: 'android-endpoints')
 }

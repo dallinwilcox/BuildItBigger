@@ -2,8 +2,6 @@ package com.dallinwilcox.jokeviewer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.widget.TextView;
 
 public class JokeActivity extends AppCompatActivity {

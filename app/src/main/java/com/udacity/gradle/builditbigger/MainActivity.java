@@ -1,17 +1,14 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.dallinwilcox.jokeviewer.JokeActivity;
+import com.dallinwilcox.jokeclient.EndpointsAsyncTask;
 
-
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +40,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view){
+        new EndpointsAsyncTask().execute(this);
 
-        Intent jokeIntent = new Intent (getApplicationContext(), JokeActivity.class);
-        jokeIntent.putExtra(JokeActivity.JOKE_STRING, jokeProvider.getRandomJoke());
-        startActivity(jokeIntent);
     }
 
 
