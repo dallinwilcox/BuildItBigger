@@ -1,12 +1,12 @@
 package com.dallinwilcox.jokeclient;
 
-import android.content.Context;
-import android.os.AsyncTask;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.InstrumentationTestCase;
 
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.CountDownLatch;
@@ -22,22 +22,16 @@ import java.util.concurrent.TimeUnit;
 @SmallTest
 public class EndpointsAsyncTaskTest extends InstrumentationTestCase{
 
-
-    public void testSomeAsyncTask () throws Throwable {
+    @Test
+    public void exerciseEndpointsAsyncTask () throws Throwable {
         // create  a signal to let us know when our task is done.
         final CountDownLatch signal = new CountDownLatch(1);
-        final  EndpointsAsyncTask TestEndpointsAsyncTask = new EndpointsAsyncTask() {
+        final  EndpointsAsyncTask testEndpointsAsyncTask = new EndpointsAsyncTask() {
 
             @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
-
-            /* This is the key, normally you would use some type of listener
-             * to notify your activity that the async call was finished.
-             *
-             * In your test method you would subscribe to that and signal
-             * from there instead.
-             */
+            protected void onPostExecute(String joke) {
+                //overriding result since we want to validate result instead of launching an activity
+                assertNotNull(joke);
                 signal.countDown();
             }
         };
@@ -46,7 +40,7 @@ public class EndpointsAsyncTaskTest extends InstrumentationTestCase{
 
             @Override
             public void run() {
-                new EndpointsAsyncTask().execute(getInstrumentation().getContext());
+                testEndpointsAsyncTask.execute(InstrumentationRegistry.getContext());
             }
         });
 
@@ -54,8 +48,5 @@ public class EndpointsAsyncTaskTest extends InstrumentationTestCase{
      * above with the countDown() or 30 seconds passes and it times out.
      */
         signal.await(30, TimeUnit.SECONDS);
-
-        // The task is done, and now you can assert some things!
-        assertNotNull(result, true);
     }
 }
