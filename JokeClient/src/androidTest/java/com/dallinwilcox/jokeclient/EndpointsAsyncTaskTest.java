@@ -1,11 +1,13 @@
 package com.dallinwilcox.jokeclient;
 
+import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.InstrumentationTestCase;
+import android.util.Log;
 
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,10 +19,19 @@ import java.util.concurrent.TimeUnit;
  * referenced
  *  - http://developer.android.com/training/testing/unit-testing/instrumented-unit-tests.html
  *  - http://stackoverflow.com/a/5722193/2169923
+ *  - http://stackoverflow.com/questions/3678959
+ *  answered
+ *  - http://stackoverflow.com/a/36758968/2169923
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
 public class EndpointsAsyncTaskTest extends InstrumentationTestCase{
+    private Instrumentation instrumentation;
+
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+   }
 
     @Test
     public void exerciseEndpointsAsyncTask () throws Throwable {
@@ -37,10 +48,9 @@ public class EndpointsAsyncTaskTest extends InstrumentationTestCase{
         };
         // Execute the async task on the UI thread! THIS IS KEY!
         runTestOnUiThread(new Runnable() {
-
             @Override
             public void run() {
-                testEndpointsAsyncTask.execute(InstrumentationRegistry.getContext());
+                testEndpointsAsyncTask.execute(InstrumentationRegistry.getInstrumentation().getTargetContext());
             }
         });
 
